@@ -137,15 +137,26 @@ def gradio_answer(chatbot, chat_state, img_list, num_beams, temperature):
     print(chat_state)
     return chatbot, chat_state, img_list
 
-title = """<h1 align="center">Demo of Video-LLaMA</h1>"""
-description = """<h3>This is the demo of Video-LLaMA. Upload your images/videos and start chatting!</h3>"""
+title = """
+<h1 align="center"><a href="https://github.com/DAMO-NLP-SG/Video-LLaMA"><img src="https://s1.ax1x.com/2023/05/22/p9oQ0FP.jpg", alt="Video-LLa" border="0" style="margin: 0 auto; height: 200px;" /></a> </h1>
 
+# Video-LLaMA: An Instruction-Finetuned Visual Language Model for Video Understanding
+
+This is the demo for the Video-LLaMA project, which is working on empowering large language models with video understanding capability. Upload your images/videos and start chatting!!!
+
+Continuously upgrading, stay tuned for more updates!
+
+<div style='display:flex; gap: 0.25rem; '>
+<a href='https://github.com/DAMO-NLP-SG/Video-LLaMA/paper.pdf'><img src='https://img.shields.io/badge/Paper-PDF-red'></a>
+<a href='https://github.com/DAMO-NLP-SG/Video-LLaMA'><img src='https://img.shields.io/badge/Github-Code-blue'></a>
+</div>
+
+"""
 
 #TODO show examples below
 
 with gr.Blocks() as demo:
     gr.Markdown(title)
-    gr.Markdown(description)
 
     with gr.Row():
         with gr.Column(scale=0.5):
