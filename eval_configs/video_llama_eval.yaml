@@ -5,7 +5,7 @@ model:
   freeze_qformer: True
   max_txt_len: 512
   end_sym: "###"
-  low_resource: False
+  low_resource: True
 
 
   llama_model: "DAMO-NLP-SG/vicuna-7b"
