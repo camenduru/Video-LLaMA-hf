@@ -1,0 +1,11 @@
+transformers==4.28.0
+tqdm
+decord
+timm
+einops
+opencv_python
+torchvision
+
+salesforce-lavis
+bitsandbytes
+accelerate
