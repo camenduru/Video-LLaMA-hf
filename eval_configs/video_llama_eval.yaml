@@ -14,7 +14,7 @@ model:
   max_frame_pos: 32
   fusion_header_type: "seqTransf"
 
-  ckpt: 'ckpt/finetune-vicuna7b-v2-nofrozen_imageQ.pth'
+  ckpt: 'ckpt/finetune-vicuna7b-v2.pth'
   q_former_model: 'ckpt/blip2_pretrained_flant5xxl.pth'
 
 datasets:
