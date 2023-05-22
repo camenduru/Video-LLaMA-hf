@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+**/__pycache__
+*$py.class
+**/.ipynb_checkpoints
+**/.ipynb_checkpoints/**
+**/video_llama_stage1_pretrain_v2.yaml
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+eval_configs/video_llama_eva_debug.yaml
+app_v2.py
