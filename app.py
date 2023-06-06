@@ -140,14 +140,14 @@ def gradio_answer(chatbot, chat_state, img_list, num_beams, temperature):
 title = """
 <h1 align="center"><a href="https://github.com/DAMO-NLP-SG/Video-LLaMA"><img src="https://s1.ax1x.com/2023/05/22/p9oQ0FP.jpg", alt="Video-LLaMA" border="0" style="margin: 0 auto; height: 200px;" /></a> </h1>
 
-<h1 align="center">Video-LLaMA: An Instruction-Finetuned Visual Language Model for Video Understanding</h1>
+<h1 align="center">Video-LLaMA: An Instruction-tuned Audio-Visual Language Model for Video Understanding</h1>
 
 <div style='display:flex; gap: 0.25rem; '>
 <a href='https://github.com/DAMO-NLP-SG/Video-LLaMA'><img src='https://img.shields.io/badge/Github-Code-success'></a>
 <a href='https://huggingface.co/spaces/DAMO-NLP-SG/Video-LLaMA'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue'></a> 
 <a href='https://huggingface.co/DAMO-NLP-SG/Video-LLaMA-Series'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue'></a> 
 <a href='https://modelscope.cn/studios/damo/video-llama/summary'><img src='https://img.shields.io/badge/ModelScope-Demo-blueviolet'></a> 
-<a href='https://github.com/DAMO-NLP-SG/Video-LLaMA/paper.pdf'><img src='https://img.shields.io/badge/Paper-PDF-red'></a>
+<a href='https://arxiv.org/abs/2306.02858'><img src='https://img.shields.io/badge/Paper-PDF-red'></a>
 </div>
 
 
