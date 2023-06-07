@@ -131,8 +131,8 @@ def gradio_answer(chatbot, chat_state, img_list, num_beams, temperature):
                               img_list=img_list,
                               num_beams=1,
                               temperature=temperature,
-                              max_new_tokens=300,
-                              max_length=2000)[0]
+                              max_new_tokens=240,
+                              max_length=512)[0]
     chatbot[-1][1] = llm_message
     print(chat_state.get_prompt())
     print(chat_state)
