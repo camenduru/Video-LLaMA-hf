@@ -17,6 +17,7 @@ from video_llama.conversation.conversation_video import Chat, Conversation, defa
 import decord
 decord.bridge.set_bridge('torch')
 
+
 #%%
 # imports modules for registration
 from video_llama.datasets.builders import *
