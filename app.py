@@ -59,16 +59,16 @@ def setup_seeds(config):
 
 print('Initializing Chat')
 args = parse_args()
-cfg = Config(args)
+# cfg = Config(args)
 
-model_config = cfg.model_cfg
-model_config.device_8bit = args.gpu_id
-model_cls = registry.get_model_class(model_config.arch)
-model = model_cls.from_config(model_config).to('cuda:{}'.format(args.gpu_id))
+# model_config = cfg.model_cfg
+# model_config.device_8bit = args.gpu_id
+# model_cls = registry.get_model_class(model_config.arch)
+# model = model_cls.from_config(model_config).to('cuda:{}'.format(args.gpu_id))
 
-vis_processor_cfg = cfg.datasets_cfg.webvid.vis_processor.train
-vis_processor = registry.get_processor_class(vis_processor_cfg.name).from_config(vis_processor_cfg)
-chat = Chat(model, vis_processor, device='cuda:{}'.format(args.gpu_id))
+# vis_processor_cfg = cfg.datasets_cfg.webvid.vis_processor.train
+# vis_processor = registry.get_processor_class(vis_processor_cfg.name).from_config(vis_processor_cfg)
+# chat = Chat(model, vis_processor, device='cuda:{}'.format(args.gpu_id))
 print('Initialization Finished')
 
 # ========================================
@@ -143,6 +143,9 @@ title = """
 
 <h1 align="center">Video-LLaMA: An Instruction-tuned Audio-Visual Language Model for Video Understanding</h1>
 
+<h5 align="center">  Introduction: Video-LLaMA is a multi-model large language model that achieves video-grounded conversations between humans and computers \
+    by connecting language decoder with off-the-shelf unimodal pre-trained models. </h5> 
+
 <div style='display:flex; gap: 0.25rem; '>
 <a href='https://github.com/DAMO-NLP-SG/Video-LLaMA'><img src='https://img.shields.io/badge/Github-Code-success'></a>
 <a href='https://huggingface.co/spaces/DAMO-NLP-SG/Video-LLaMA'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue'></a> 
@@ -152,7 +155,23 @@ title = """
 </div>
 
 
+Thank you for using the Video-LLaMA Demo Page! If you have any questions or feedback, feel free to contact us. 
+
+If you think Video-LLaMA interesting, please give us a star on GitHub.
+
+Current online demo uses the 7B version of PandaGPT due to resource limitations. We have released \
+         the 13B version on our GitHub repository.
+
+
 """
+
+Note_markdown = ("""
+### Note
+Video-LLaMA is a prototype model and may have limitations in understanding complex scenes, long videos, or specific domains.
+The output results may be influenced by input quality, limitations of the dataset, and the model's susceptibility to illusions. Please interpret the results with caution.
+
+**Copyright 2023 Alibaba DAMO Academy.**
+""")
 
 #TODO show examples below
 
@@ -185,20 +204,35 @@ with gr.Blocks() as demo:
                 label="Temperature",
             )
 
+            audio = gr.Checkbox(interactive=True, value=False, label="Audio")
+            gr.Markdown(Note_markdown)
         with gr.Column():
             chat_state = gr.State()
             img_list = gr.State()
             chatbot = gr.Chatbot(label='Video-LLaMA')
             text_input = gr.Textbox(label='User', placeholder='Please upload your image/video first', interactive=False)
+            
 
-    
+    with gr.Column():
+        gr.Examples(examples=[
+            [f"examples/dog.jpg", "What breed do you think this dog is ?"],
+            [f"examples/jonsnow.jpg", "Who's the man on the right? "],
+            [f"examples/statue_of_liberty.jpg", "Can you tell me about this building? "],
+        ], inputs=[image, text_input])
+
+        gr.Examples(examples=[
+            [f"examples/skateboarding_dog.mp4", "What is the dog doing? "],
+            [f"examples/birthday.mp4", "What is the boy doing? "],
+            [f"examples/Iron_Man.mp4", "Is the guy in the video Iron Man? "],
+        ], inputs=[video, text_input])
+
     upload_button.click(upload_imgorvideo, [video, image, text_input, chat_state], [video, image, text_input, upload_button, chat_state, img_list])
     
     text_input.submit(gradio_ask, [text_input, chatbot, chat_state], [text_input, chatbot, chat_state]).then(
         gradio_answer, [chatbot, chat_state, img_list, num_beams, temperature], [chatbot, chat_state, img_list]
     )
     clear.click(gradio_reset, [chat_state, img_list], [chatbot, video, image, text_input, upload_button, chat_state, img_list], queue=False)
-
+    
 demo.launch(share=False, enable_queue=True)
 
 # %%
