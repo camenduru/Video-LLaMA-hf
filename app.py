@@ -59,16 +59,16 @@ def setup_seeds(config):
 
 print('Initializing Chat')
 args = parse_args()
-# cfg = Config(args)
+cfg = Config(args)
 
-# model_config = cfg.model_cfg
-# model_config.device_8bit = args.gpu_id
-# model_cls = registry.get_model_class(model_config.arch)
-# model = model_cls.from_config(model_config).to('cuda:{}'.format(args.gpu_id))
+model_config = cfg.model_cfg
+model_config.device_8bit = args.gpu_id
+model_cls = registry.get_model_class(model_config.arch)
+model = model_cls.from_config(model_config).to('cuda:{}'.format(args.gpu_id))
 
-# vis_processor_cfg = cfg.datasets_cfg.webvid.vis_processor.train
-# vis_processor = registry.get_processor_class(vis_processor_cfg.name).from_config(vis_processor_cfg)
-# chat = Chat(model, vis_processor, device='cuda:{}'.format(args.gpu_id))
+vis_processor_cfg = cfg.datasets_cfg.webvid.vis_processor.train
+vis_processor = registry.get_processor_class(vis_processor_cfg.name).from_config(vis_processor_cfg)
+chat = Chat(model, vis_processor, device='cuda:{}'.format(args.gpu_id))
 print('Initialization Finished')
 
 # ========================================
@@ -215,7 +215,7 @@ with gr.Blocks() as demo:
 
     with gr.Column():
         gr.Examples(examples=[
-            [f"examples/dog.jpg", "What breed do you think this dog is ?"],
+            [f"examples/dog.jpg", "Which breed is this dog? "],
             [f"examples/jonsnow.jpg", "Who's the man on the right? "],
             [f"examples/statue_of_liberty.jpg", "Can you tell me about this building? "],
         ], inputs=[image, text_input])
