@@ -157,7 +157,7 @@ title = """
 
 Thank you for using the Video-LLaMA Demo Page! If you have any questions or feedback, feel free to contact us. 
 
-If you think Video-LLaMA interesting, please give us a star on GitHub.
+If you find Video-LLaMA interesting, please give us a star on GitHub.
 
 Current online demo uses the 7B version of Video-LLaMA due to resource limitations. We have released \
          the 13B version on our GitHub repository.
@@ -171,6 +171,19 @@ Video-LLaMA is a prototype model and may have limitations in understanding compl
 The output results may be influenced by input quality, limitations of the dataset, and the model's susceptibility to illusions. Please interpret the results with caution.
 
 **Copyright 2023 Alibaba DAMO Academy.**
+""")
+
+cite_markdown = ("""
+## Citation
+If you find our project useful, hope you can star our repo and cite our paper as follows:
+```
+@article{damonlpsg2023videollama,
+  author = {Zhang, Hang and Li, Xin and Bing, Lidong},
+  title = {Video-LLaMA: An Instruction-tuned Audio-Visual Language Model for Video Understanding},
+  year = 2023,
+  journal = {arXiv preprint arXiv:2306.02858}
+  url = {https://arxiv.org/abs/2306.02858}
+}
 """)
 
 #TODO show examples below
@@ -225,7 +238,8 @@ with gr.Blocks() as demo:
             [f"examples/birthday.mp4", "What is the boy doing? "],
             [f"examples/Iron_Man.mp4", "Is the guy in the video Iron Man? "],
         ], inputs=[video, text_input])
-
+        
+    gr.Markdown(cite_markdown)
     upload_button.click(upload_imgorvideo, [video, image, text_input, chat_state], [video, image, text_input, upload_button, chat_state, img_list])
     
     text_input.submit(gradio_ask, [text_input, chatbot, chat_state], [text_input, chatbot, chat_state]).then(
