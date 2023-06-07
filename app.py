@@ -82,11 +82,12 @@ def gradio_reset(chat_state, img_list):
         img_list = []
     return None, gr.update(value=None, interactive=True), gr.update(value=None, interactive=True), gr.update(placeholder='Please upload your video first', interactive=False),gr.update(value="Upload & Start Chat", interactive=True), chat_state, img_list
 
-def upload_imgorvideo(gr_video, gr_img, text_input, chat_state):
+def upload_imgorvideo(gr_video, gr_img, text_input, chat_state,chatbot):
     if gr_img is None and gr_video is None:
         return None, None, None, gr.update(interactive=True), chat_state, None
     elif gr_img is not None and gr_video is None:
         print(gr_img)
+        chatbot = chatbot + [((gr_img,), None)]
         chat_state = Conversation(
             system= "You are able to understand the visual content that the user provides."
            "Follow the instructions carefully and explain your answers in detail.",
@@ -98,9 +99,10 @@ def upload_imgorvideo(gr_video, gr_img, text_input, chat_state):
         )
         img_list = []
         llm_message = chat.upload_img(gr_img, chat_state, img_list)
-        return gr.update(interactive=False), gr.update(interactive=False), gr.update(interactive=True, placeholder='Type and press Enter'), gr.update(value="Start Chatting", interactive=False), chat_state, img_list
+        return gr.update(interactive=False), gr.update(interactive=False), gr.update(interactive=True, placeholder='Type and press Enter'), gr.update(value="Start Chatting", interactive=False), chat_state, img_list,chatbot
     elif gr_video is not None and gr_img is None:
         print(gr_video)
+        chatbot = chatbot + [((gr_video,), None)]
         chat_state = default_conversation.copy()
         chat_state = Conversation(
             system= "You are able to understand the visual content that the user provides."
@@ -113,10 +115,10 @@ def upload_imgorvideo(gr_video, gr_img, text_input, chat_state):
         )
         img_list = []
         llm_message = chat.upload_video(gr_video, chat_state, img_list)
-        return gr.update(interactive=False), gr.update(interactive=False), gr.update(interactive=True, placeholder='Type and press Enter'), gr.update(value="Start Chatting", interactive=False), chat_state, img_list
+        return gr.update(interactive=False), gr.update(interactive=False), gr.update(interactive=True, placeholder='Type and press Enter'), gr.update(value="Start Chatting", interactive=False), chat_state, img_list,chatbot
     else:
         # img_list = []
-        return gr.update(interactive=False), gr.update(interactive=False, placeholder='Currently, only one input is supported'), gr.update(value="Currently, only one input is supported", interactive=False), chat_state, None
+        return gr.update(interactive=False), gr.update(interactive=False, placeholder='Currently, only one input is supported'), gr.update(value="Currently, only one input is supported", interactive=False), chat_state, None,chatbot
 
 def gradio_ask(user_message, chatbot, chat_state):
     if len(user_message) == 0:
@@ -186,6 +188,10 @@ If you find our project useful, hope you can star our repo and cite our paper as
 }
 """)
 
+case_note_upload = ("""
+We provide some examples at the bottom of the page. Simply click on them to try them out directly.
+""")
+
 #TODO show examples below
 
 with gr.Blocks() as demo:
@@ -195,6 +201,7 @@ with gr.Blocks() as demo:
         with gr.Column(scale=0.5):
             video = gr.Video()
             image = gr.Image(type="pil")
+            gr.Markdown(case_note_upload)
 
             upload_button = gr.Button(value="Upload & Start Chat", interactive=True, variant="primary")
             clear = gr.Button("Restart")
@@ -240,7 +247,7 @@ with gr.Blocks() as demo:
         ], inputs=[video, text_input])
         
     gr.Markdown(cite_markdown)
-    upload_button.click(upload_imgorvideo, [video, image, text_input, chat_state], [video, image, text_input, upload_button, chat_state, img_list])
+    upload_button.click(upload_imgorvideo, [video, image, text_input, chat_state,chatbot], [video, image, text_input, upload_button, chat_state, img_list,chatbot])
     
     text_input.submit(gradio_ask, [text_input, chatbot, chat_state], [text_input, chatbot, chat_state]).then(
         gradio_answer, [chatbot, chat_state, img_list, num_beams, temperature], [chatbot, chat_state, img_list]
