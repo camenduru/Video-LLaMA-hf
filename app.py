@@ -159,7 +159,7 @@ Thank you for using the Video-LLaMA Demo Page! If you have any questions or feed
 
 If you think Video-LLaMA interesting, please give us a star on GitHub.
 
-Current online demo uses the 7B version of PandaGPT due to resource limitations. We have released \
+Current online demo uses the 7B version of Video-LLaMA due to resource limitations. We have released \
          the 13B version on our GitHub repository.
 
 
