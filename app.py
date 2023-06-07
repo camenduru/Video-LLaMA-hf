@@ -189,7 +189,7 @@ If you find our project useful, hope you can star our repo and cite our paper as
 """)
 
 case_note_upload = ("""
-### We provide some examples at the bottom of the page. Simply click on them to try them out directly.
+###We provide some examples at the bottom of the page. Simply click on them to try them out directly.
 """)
 
 #TODO show examples below
@@ -200,7 +200,7 @@ with gr.Blocks() as demo:
     with gr.Row():
         with gr.Column(scale=0.5):
             video = gr.Video()
-            image = gr.Image()
+            image = gr.Image(type="filepath")
             gr.Markdown(case_note_upload)
 
             upload_button = gr.Button(value="Upload & Start Chat", interactive=True, variant="primary")
