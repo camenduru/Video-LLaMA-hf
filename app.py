@@ -189,7 +189,7 @@ If you find our project useful, hope you can star our repo and cite our paper as
 """)
 
 case_note_upload = ("""
-###We provide some examples at the bottom of the page. Simply click on them to try them out directly.
+### We provide some examples at the bottom of the page. Simply click on them to try them out directly.
 """)
 
 #TODO show examples below
@@ -230,7 +230,7 @@ with gr.Blocks() as demo:
             chat_state = gr.State()
             img_list = gr.State()
             chatbot = gr.Chatbot(label='Video-LLaMA')
-            text_input = gr.Textbox(label='User', placeholder='Please upload your image/video first', interactive=False)
+            text_input = gr.Textbox(label='User', placeholder='Upload your image/video first, or directly click the examples at the bottom of the page.', interactive=False)
             
 
     with gr.Column():
