@@ -111,7 +111,7 @@ class VideoLLAMA(Blip2Base):
         logging.info('Loading Q-Former Done')
 
         logging.info('Loading LLAMA Tokenizer')
-        self.llama_tokenizer = LlamaTokenizer.from_pretrained(llama_model,  use_fast=False, use_auth_token=os.environ["API_TOKEN"])
+        self.llama_tokenizer = LlamaTokenizer.from_pretrained(llama_model,  use_fast=False)
         if self.llama_tokenizer.pad_token is None:
             self.llama_tokenizer.pad_token = self.llama_tokenizer.eos_token 
         DEFAULT_IMAGE_PATCH_TOKEN = '<ImageHere>'
@@ -124,13 +124,12 @@ class VideoLLAMA(Blip2Base):
                 llama_model,
                 torch_dtype=torch.float16,
                 load_in_8bit=True,
-                device_map={'': device_8bit},
-                use_auth_token=os.environ["API_TOKEN"]
+                device_map={'': device_8bit}
             )
         else:
             self.llama_model = LlamaForCausalLM.from_pretrained(
                 llama_model,
-                torch_dtype=torch.float16,use_auth_token=os.environ["API_TOKEN"]
+                torch_dtype=torch.float16
             )
 
         for name, param in self.llama_model.named_parameters():
