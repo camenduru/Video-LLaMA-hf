@@ -8,7 +8,7 @@ model:
   low_resource: False
 
 
-  llama_model: "lmsys/vicuna-7b-delta-v1.1"
+  llama_model: "4bit/vicuna-7b"
 
   fusion_head_layers: 2
   max_frame_pos: 32
