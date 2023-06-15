@@ -141,30 +141,7 @@ def gradio_answer(chatbot, chat_state, img_list, num_beams, temperature):
     return chatbot, chat_state, img_list
 
 title = """
-<h1 align="center"><a href="https://github.com/DAMO-NLP-SG/Video-LLaMA"><img src="https://s1.ax1x.com/2023/05/22/p9oQ0FP.jpg", alt="Video-LLaMA" border="0" style="margin: 0 auto; height: 200px;" /></a> </h1>
-
 <h1 align="center">Video-LLaMA: An Instruction-tuned Audio-Visual Language Model for Video Understanding</h1>
-
-<h5 align="center">  Introduction: Video-LLaMA is a multi-model large language model that achieves video-grounded conversations between humans and computers \
-    by connecting language decoder with off-the-shelf unimodal pre-trained models. </h5> 
-
-<div style='display:flex; gap: 0.25rem; '>
-<a href='https://github.com/DAMO-NLP-SG/Video-LLaMA'><img src='https://img.shields.io/badge/Github-Code-success'></a>
-<a href='https://huggingface.co/spaces/DAMO-NLP-SG/Video-LLaMA'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue'></a> 
-<a href='https://huggingface.co/DAMO-NLP-SG/Video-LLaMA-Series'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue'></a> 
-<a href='https://modelscope.cn/studios/damo/video-llama/summary'><img src='https://img.shields.io/badge/ModelScope-Demo-blueviolet'></a> 
-<a href='https://arxiv.org/abs/2306.02858'><img src='https://img.shields.io/badge/Paper-PDF-red'></a>
-</div>
-
-
-Thank you for using the Video-LLaMA Demo Page! If you have any questions or feedback, feel free to contact us. 
-
-If you find Video-LLaMA interesting, please give us a star on GitHub.
-
-Current online demo uses the 7B version of Video-LLaMA due to resource limitations. We have released \
-         the 13B version on our GitHub repository.
-
-
 """
 
 Note_markdown = ("""
@@ -186,6 +163,12 @@ If you find our project useful, hope you can star our repo and cite our paper as
   journal = {arXiv preprint arXiv:2306.02858}
   url = {https://arxiv.org/abs/2306.02858}
 }
+```
+
+<div style='display:flex; gap: 0.25rem; '>
+<a href='https://github.com/DAMO-NLP-SG/Video-LLaMA'><img src='https://img.shields.io/badge/Github-Code-success'></a>
+<a href='https://arxiv.org/abs/2306.02858'><img src='https://img.shields.io/badge/Paper-PDF-red'></a>
+</div>
 """)
 
 case_note_upload = ("""
@@ -233,18 +216,18 @@ with gr.Blocks() as demo:
             text_input = gr.Textbox(label='User', placeholder='Upload your image/video first, or directly click the examples at the bottom of the page.', interactive=False)
             
 
-    with gr.Column():
-        gr.Examples(examples=[
-            [f"examples/dog.jpg", "Which breed is this dog? "],
-            [f"examples/jonsnow.jpg", "Who's the man on the right? "],
-            [f"examples/statue_of_liberty.jpg", "Can you tell me about this building? "],
-        ], inputs=[image, text_input])
+#     with gr.Column():
+#         gr.Examples(examples=[
+#             [f"examples/dog.jpg", "Which breed is this dog? "],
+#             [f"examples/jonsnow.jpg", "Who's the man on the right? "],
+#             [f"examples/statue_of_liberty.jpg", "Can you tell me about this building? "],
+#         ], inputs=[image, text_input])
 
-        gr.Examples(examples=[
-            [f"examples/skateboarding_dog.mp4", "What is the dog doing? "],
-            [f"examples/birthday.mp4", "What is the boy doing? "],
-            [f"examples/Iron_Man.mp4", "Is the guy in the video Iron Man? "],
-        ], inputs=[video, text_input])
+#         gr.Examples(examples=[
+#             [f"examples/skateboarding_dog.mp4", "What is the dog doing? "],
+#             [f"examples/birthday.mp4", "What is the boy doing? "],
+#             [f"examples/Iron_Man.mp4", "Is the guy in the video Iron Man? "],
+#         ], inputs=[video, text_input])
         
     gr.Markdown(cite_markdown)
     upload_button.click(upload_imgorvideo, [video, image, text_input, chat_state,chatbot], [video, image, text_input, upload_button, chat_state, img_list,chatbot])
